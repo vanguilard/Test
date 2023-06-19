@@ -13,8 +13,8 @@ jobs:
     - name: Setup SSH Client
       run: |
         sudo apt install openssh-server -y
-        ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa_github
+        ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa_github
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         echo "${{ secrets.SSH_HOST }}" > ~/.ssh/known_hosts
         sudo sed -i '/#Port 22/c Port 22' /etc/ssh/sshd_config;
         sudo sed -i '/#AddressFamily any/c AddressFamily any' /etc/ssh/sshd_config;
