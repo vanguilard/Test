@@ -7,6 +7,7 @@ on:
 jobs:
   build:
     name: Run Pull
+    environment: Test_Environment
     runs-on: ubuntu-latest
     steps:
     - name: Cleanup
