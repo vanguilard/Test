@@ -13,4 +13,6 @@ jobs:
     
     steps:
     - name: Run Git CLI for Pull Request
-      run: git pull
+      run: |
+        cd /var/www/Test
+        git pull
