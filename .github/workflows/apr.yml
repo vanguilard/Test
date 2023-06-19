@@ -10,18 +10,16 @@ jobs:
     environment: Test_Environment
     runs-on: ubuntu-latest
     steps:
-    - name: Install SSH Keys
-      # check this thread to understand why its needed:
-      # https://stackoverflow.com/a/70447517
+    - name: Setup SSH Client
       run: |
         install -m 600 -D /dev/null ~/.ssh/id_rsa
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         echo "${{ secrets.SSH_HOST }}" > ~/.ssh/known_hosts
-    - name: Install Cloudflared
+    - name: Setup Cloudflared
       run: |
-        pwd
         wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
         sudo dpkg -i cloudflared-linux-amd64.deb
+        echo -e "Host ssh.suzuqui.live\nProxyCommand /usr/local/bin/cloudflared access ssh --hostname %h" > ~/.ssh/config
     - name: Connect and Pull
       run: |
         ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_PUBLIC_HOST_NAME }}
