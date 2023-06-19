@@ -1,0 +1,16 @@
+# File: .repository/workflows/apr.yml
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  
+jobs:
+  run_pull:
+    name: run automatic pull request
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Run Git CLI for Pull Request
+      run: git pull
