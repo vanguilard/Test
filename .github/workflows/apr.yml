@@ -16,7 +16,12 @@ jobs:
       run: |
         install -m 600 -D /dev/null ~/.ssh/id_rsa
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        echo ${{ secrets.SSH_PUBLIC_KEY }} > ~/.ssh/known_hosts
+        ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
+    - name: Install Cloudflared
+      run: |
+        echo pwd
+        wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
+        dpkg -i cloudflared-linux-amd64.deb
     - name: Connect and Pull
       run: |
         ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
@@ -24,5 +29,5 @@ jobs:
         git checkout ${{ secrets.MAIN_BRANCH }}
         git pull
         exit
-    - name: cleanup
+    - name: Cleanup
       run: rm -rf ~/.ssh
