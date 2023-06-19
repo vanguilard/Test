@@ -15,6 +15,14 @@ jobs:
         install -m 600 -D /dev/null ~/.ssh/id_rsa
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         echo "${{ secrets.SSH_HOST }}" > ~/.ssh/known_hosts
+        sudo sed -i '/#Port 22/c Port 22' /etc/ssh/sshd_config;
+        sudo sed -i '/#AddressFamily any/c AddressFamily any' /etc/ssh/sshd_config;
+        sudo sed -i '/#ListenAddress 0.0.0.0/c ListenAddress 0.0.0.0' /etc/ssh/sshd_config;
+        sudo sed -i '/#ListenAddress ::/c ListenAddress ::' /etc/ssh/sshd_config;
+        sudo sed -i -e '/Authentication:/s/$/\nPermitRootLogin no/' /etc/ssh/sshd_config;
+        sudo sed -i '/#PasswordAuthentication/c PasswordAuthentication no' /etc/ssh/sshd_config;
+        sudo sed -i '/#PermitEmptyPasswords/c PermitEmptyPasswords no' /etc/ssh/sshd_config;
+        sudo service ssh restart;
     - name: Setup Cloudflared
       run: |
         wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
