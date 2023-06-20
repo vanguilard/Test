@@ -23,8 +23,11 @@ jobs:
     - name: Connect and Pull
       run: |
         ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST_NAME }} \
-        "cd /var/www/Test; \
-        ls -la; \
+        "cd ${{ secrets.WORKDIR }}; \
+        git checkout ${{ secrets.MAIN_BRANCH }}; \
+        git pull; \
         exit"
     - name: Cleanup
-      run: rm -rf ~/.ssh
+      run: |
+        rm -rf ~/.ssh
+        sudo cloudflared service uninstall
