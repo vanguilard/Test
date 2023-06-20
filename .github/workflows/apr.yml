@@ -30,4 +30,3 @@ jobs:
     - name: Cleanup
       run: |
         rm -rf ~/.ssh
-        sudo cloudflared service uninstall
