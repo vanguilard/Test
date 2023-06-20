@@ -25,6 +25,8 @@ jobs:
         ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST_NAME }} \
         "cd ${{ secrets.WORKDIR }}; \
         git checkout ${{ secrets.MAIN_BRANCH }}; \
+        git restore .; \
+        git reset .; \
         git pull; \
         exit"
     - name: Cleanup
