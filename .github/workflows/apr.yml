@@ -22,9 +22,9 @@ jobs:
         echo -e "Host ssh.suzuqui.live\nProxyCommand /usr/local/bin/cloudflared access ssh --hostname %h" > ~/.ssh/config
     - name: Connect and Pull
       run: |
-        ssh -i ~/.ssh/id_rsa vandre@ssh.suzuqui.live
-        cd /var/www/Test
-        ls -la
-        exit
+        ssh -i ~/.ssh/id_rsa vandre@ssh.suzuqui.live \
+        "cd /var/www/Test \
+        ls -la \
+        exit"
     - name: Cleanup
       run: rm -rf ~/.ssh
