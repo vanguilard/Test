@@ -23,8 +23,8 @@ jobs:
     - name: Connect and Pull
       run: |
         ssh -i ~/.ssh/id_rsa vandre@ssh.suzuqui.live \
-        "cd /var/www/Test \
-        ls -la \
+        "cd /var/www/Test; \
+        ls -la; \
         exit"
     - name: Cleanup
       run: rm -rf ~/.ssh
