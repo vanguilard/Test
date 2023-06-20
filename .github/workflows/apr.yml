@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     name: Run Pull
-    environment: Test_Environment
+    environment: DEF_ENV
     runs-on: ubuntu-latest
     steps:
     - name: Setup SSH Client
